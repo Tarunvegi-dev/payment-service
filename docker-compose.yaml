@@ -1,0 +1,15 @@
+services:
+  postgres:
+    image: postgres:16
+    container_name: payment_postgres
+    environment:
+      POSTGRES_DB: payment_db
+      POSTGRES_USER: ${DB_USERNAME:-payment_user}
+      POSTGRES_PASSWORD: ${DB_PASSWORD:-payment_pass}
+    ports:
+      - "5433:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+volumes:
+  postgres_data:
