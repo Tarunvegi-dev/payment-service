@@ -10,8 +10,10 @@ import com.payment.payment_service.repository.PaymentRepository;
 import com.payment.payment_service.service.PaymentPersistentService;
 
 import jakarta.transaction.Transactional;
+import lombok.extern.slf4j.Slf4j;
 
 @Service
+@Slf4j
 public class PaymentPersistentServiceImpl implements PaymentPersistentService{
 
     private final PaymentRepository paymentRepository;
@@ -33,6 +35,7 @@ public class PaymentPersistentServiceImpl implements PaymentPersistentService{
         payment.setTransactionType(processPaymentRequest.getTransactionType());
         paymentRepository.saveAndFlush(payment);
         processPaymentResponse.setPaymentStatus(payment.getPaymentStatus());
+        log.info("Payment completed :{}", processPaymentRequest.getTransactionId());
         return processPaymentResponse;
     }
 }
